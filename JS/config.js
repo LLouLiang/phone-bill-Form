@@ -1,0 +1,27 @@
+myapp.config(['$routeProvider','$locationProvider',function($routeProvider,$locationProvider){
+    $locationProvider.html5Mode(false);
+    $locationProvider.hashPrefix("!");
+    $routeProvider.when("/",{
+        templateUrl:"../Clients/home.html",
+        controller:"homeCtrl"
+    })
+    .when("/notification",{
+        templateUrl:"../Clients/Notification.html",
+        controller:"notificateCtrl"
+    })
+    .when("/usage",{
+        templateUrl:"../Clients/usage.html",
+        controller:"usageCtrl"
+    })
+    .when("/profile",{
+        templateUrl:"../Clients/profile.html"
+    })
+    .when("/registration",{
+        templateUrl:"../Clients/register.html",
+        controller:"registerCtrl"
+    })
+    .when("/login",{
+        templateUrl:"../Clients/login.html",
+        controller:"loginCtrl"
+    });
+}]);
