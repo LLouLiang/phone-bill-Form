@@ -9,16 +9,11 @@
     <script src="https://bootswatch.com/_vendor/popper.js/dist/umd/popper.min.js"></script>
     <script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.js"></script>
-    <script src="./JS/app.js"></script>
-    <script src="./JS/config.js"></script>
-    <script src="./JS/bpCtrls.js"></script>
     <title>Welcome</title>
 </head>
     <body ng-app="pbApp">
-        <div>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div ng-controller="indexCtrl">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary" ng-cloak>
                 <a class="navbar-brand" href="#!/">Home</a>
                 <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
@@ -38,33 +33,41 @@
                   </ul>
                   <ul class="navbar-nav">
                       <li class="nav-item">
-                          <button class="btn btn-outline-info">sign in</button>
-                          <button class="btn btn-outline-success">sign up</button>
+                          <button class="btn btn-outline-info" ng-click="onSignIn()">sign in</button>
+                          <button class="btn btn-outline-success" ng-click="onSignUp()">sign up</button>
                       </li>
                   </ul>
                 </div>
               </nav>
         </div>
-        <div>
-            <div ng-view>
+        <div ng-cloak>
+            <div class="container" ng-view></div>
+        </div>
+        <div ng-cloak>
+            <footer>
+                <div class="copyright">&copy; 2018 Monmouth University 2016 Alumni</div>
+            </footer>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>   
 
-            </div>
-        </div>
-        <div>
-            <footer></footer>
-        </div>
-        <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>        
-        <script>
-            // Initialize Firebase
-            var config = {
-            apiKey: "AIzaSyAjTuNufDPCMvEjcDvLZKgG1aTb0l9IvMc",
-            authDomain: "phone-bill-ed919.firebaseapp.com",
-            databaseURL: "https://phone-bill-ed919.firebaseio.com",
-            projectId: "phone-bill-ed919",
-            storageBucket: "phone-bill-ed919.appspot.com",
-            messagingSenderId: "291426985660"
-            };
-            firebase.initializeApp(config);
-        </script>
+        <!-- <script>
+                // Initialize Firebase
+                var config = {
+                apiKey: "AIzaSyAjTuNufDPCMvEjcDvLZKgG1aTb0l9IvMc",
+                authDomain: "phone-bill-ed919.firebaseapp.com",
+                databaseURL: "https://phone-bill-ed919.firebaseio.com",
+                projectId: "phone-bill-ed919",
+                storageBucket: "phone-bill-ed919.appspot.com",
+                messagingSenderId: "291426985660"
+                };
+                firebase.initializeApp(config);
+        </script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular.js"></script>       
+        <script src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script> 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.5/angular-route.js"></script>
+        <script src="./JS/app.js"></script>
+        <script src="./JS/config.js"></script>
+        <script src="./JS/bpCtrls.js"></script>
+       
     </body>
 </html>
