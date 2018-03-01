@@ -1,34 +1,66 @@
-<form ng-submit="onSignUp()">
+<form name="registerForm" novalidate="">
     <fieldset>
-        <div class="form-group">
+        <div ng-class="(registerForm.registerEmail.$invalid && !registerForm.registerEmail.$pristine) ?'form-group has-danger' : ((!registerForm.registerPassword.$dirty && !registerForm.registerEmail.$pristine) ? 'form-group has-success' : 'form-group')">
             <label for="InputEmail1">Email address</label>
-            <input type="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+            <input type="email" name="registerEmail" ng-class="(registerForm.registerEmail.$invalid && !registerForm.registerEmail.$pristine)?'form-control is-invalid' : ((!registerForm.registerPassword.$dirty && !registerForm.registerEmail.$pristine) ? 'form-control is-valid' : 'form-control')" id="InputEmail1" ng-model="email_register" aria-describedby="emailHelp" placeholder="Enter email" required="">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-        </div>
-        <div class="form-group">
+			<div class="invalid-feedback" ng-show="registerForm.registerEmail.$invalid && !registerForm.registerEmail.$pristine">Sorry, please give us your correct email address. Try another?</div>
+			<div class="valid-feedback" ng-show="registerForm.registerEmail.$valid && !registerForm.registerEmail.$pristine">Yes, we receive your kindness email address</div>
+		</div>
+		
+        <div ng-class="(needPwdHint)?'form-group':'form-group has-danger'">
             <label for="InputPassword1">Password</label>
-            <input type="password" class="form-control" id="InputPassword1" placeholder="Password">
-        </div>
-        <div class="form-group">
+            <input type="password" name="registerPassword" ng-class="(needPwdHint)?'form-control' : 'form-control is-invalid'" id="InputPassword1" ng-model="password_register" ng-minlength="6" ng-maxlength="20" placeholder="Password" required="">
+			<div class="alert alert-dismissible alert-danger" ng-show="!needPwdHint">
+				<ul class="list-group">
+					<li class="list-group-item"><p>a minimum of 6 characters required</p></li>
+					<li class="list-group-item"><p>a-z allowed & required</p></li>
+					<li class="list-group-item"><p>A-Z allowed & required</p></li>
+					<li class="list-group-item"><p>0-9 allowed & required</p></li>
+					<li class="list-group-item"><p>white spaces allowed</p></li>
+					<li class="list-group-item"><p>special characters allowed</p></li>
+				</ul>
+			</div>
+		</div>
+		{{needPwdHint}}
+		pwd : {{password_register}}
+        <div ng-class="(password_repeat_register) ? ((matchPwd())? 'form-group has-success' : 'form-group has-danger') : 'form-group'">
             <label for="InputPassword2">Repeat Password</label>
-            <input type="password" class="form-control" id="InputPassword2" placeholder="Repeat Password">
-        </div>
-
-        <div class="form-group">
+            <input type="password" name="registerRepeatPassword" ng-class="(password_repeat_register) ? ((matchPwd())? 'form-control is-valid' : 'form-control is-invalid') :  'form-control'" id="InputPassword2" ng-model="password_repeat_register" placeholder="Repeat Password" required="">
+			<div ng-show="!matchPwd()" class="invalid-feedback">Not match your password</div>
+			<div ng-show="matchPwd()" class="valid-feedback">Right on!</div>
+		</div>
+        <div class="form-group"ng-class="(registerForm.registerName.$invalid && !registerForm.registerName.$pristine) ? 'form-group has-danger' : ((registerForm.registerName.$dirty && !registerForm.registerName.$pristine) ? 'form-group has-success' : 'form-group')">
             <label class="col-form-label" for="inputName">Name on Passport</label>
-            <input type="text" class="form-control" placeholder="Name" id="inputName">
-        </div>
-        <div class="form-group">
+            <input type="text" name="registerName" ng-class="(registerForm.registerName.$invalid && !registerForm.registerName.$pristine) ? 'form-control is-invalid' : ((registerForm.registerName.$dirty && !registerForm.registerName.$pristine) ? 'form-control is-valid' : 'form-control')" id="inputName" ng-model="name_register" placeholder="Name" required="">
+			<div class="invalid-feedback" ng-show="registerForm.registerName.$invalid && !registerForm.registerName.$pristine">Your forgot input your name, Try again?</div>
+			<div class="valid-feedback" ng-show="registerForm.registerName.$valid && !registerForm.registerName.$pristine">Yes, we receive your Name</div>
+		</div>
+		
+        <div ng-class="(registerForm.registerPhone.$invalid && !registerForm.registerPhone.$pristine) ? 'form-group has-danger' : ((registerForm.registerPhone.$dirty && !registerForm.registerPhone.$pristine)? 'form-group has-success' : 'form-group')">
             <label class="col-form-label" for="inputPhoneNum">T-Mobile Phone Number</label>
-            <input type="text" class="form-control" placeholder="T-Mobile" id="inputPhoneNum">
-        </div>
+            <input type="number" name="registerPhone" ng-class="(registerForm.registerPhone.$invalid && !registerForm.registerPhone.$pristine) ? 'form-control is-invalid' : ((registerForm.registerPhone.$dirty && !registerForm.registerPhone.$pristine)? 'form-control is-valid' : 'form-control')" ng-model="phonenum_register" ng-minlength="10" ng-maxlength="10" placeholder="T-Mobile" id="inputPhoneNum" required="">
+			<div ng-show="registerForm.registerPhone.$error.minlength" class="invalid-feedback">Too short! We don't recongize this number. </div>
+			<div ng-show="registerForm.registerPhone.$error.maxlength" class="invalid-feedback">Too Long! We don't recongize this number. </div>
+			<div ng-show="registerForm.registerPhone.$valid && !registerForm.registerPhone.$printine" class="valid-feedback">Yes, we get your T-Mobile number you are using right now</div>
+		</div>
+		<div ng-class="(registerForm.registerHomeAddress.$invalid && !registerForm.registerHomeAddress.$pristine) ? 'form-group has-danger' : ((registerForm.registerHomeAddress.$dirty && !registerForm.registerHomeAddress.$pristine) ? 'form-group has-success' : 'form-group')">
+			<label class="col-form-label" for="inputHomeAddress">Home Address</label>
+			<input type="text" name="registerHomeAddress" ng-class="(registerForm.registerHomeAddress.$invalid && !registerForm.registerHomeAddress.$pristine) ? 'form-control is-invalid' : ((registerForm.registerHomeAddress.$dirty && !registerForm.registerHomeAddress.$pristine) ? 'form-control is-valid' : 'form-control')" ng-model="homeAddress_register" placeholder="Home Address" id="inputHomeAddress" required="">
+			<div ng-show="registerForm.registerHomeAddress.$invalid && !registerForm.registerHomeAddress.$pristine" class="invalid-feedback">
+				Please give us your Home Address!
+			</div>
+		</div>
         <div class="form-group">
             <fieldset disabled="">
                 <label class="col-form-label" for="inputFile">Choose Your Avatar</label>
-                <input type="file" class="form-control" placeholder="Your avatar" id="inputFile">
+                <input type="file" class="form-control" ng-model="avatar_register" placeholder="Your avatar" id="inputFile">
             </fieldset>
+			<div class="progress">
+				<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="12" aria-valuemin="0" aria-valuemax="100" style="width: 75%"></div>
+			</div>
         </div>
-        <button type="submit" class="btn btn-outline-success">OK</button>
-        <button type="button" class="btn btn-outline-info" ng-click="onBackLogin()">Back</button>
+        <button type="submit" class="btn btn-outline-success" ng-click="onSignUp()" id="btnOK" ng-disabled="registerForm.$invalid || registerForm.$pristine">OK</button>
+        <button type="button" class="btn btn-outline-info" id="btnBakck" ng-click="onBackLogin()">Back</button>
     </fieldset>
 </form>
